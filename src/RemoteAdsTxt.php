@@ -148,8 +148,8 @@ class RemoteAdsTxt {
 				if ( ! \is_wp_error( $head ) ) {
 					$last_modified = \intval( \wp_remote_retrieve_header( $head, 'last-modified' ) );
 
-					if ( $last_modified && $last_modified <= $this->cache->getMTime() ) {
-						// Remote is not frsher, update cache mtime
+					if ( $last_modified && $last_modified > 1 && $last_modified <= $this->cache->getMTime() ) {
+						// Remote is not fresher, update cache mtime
 						$this->cache->touch();
 
 						return 'Reached timeout, but remote has not changed. Cache mtime has been updated.';
