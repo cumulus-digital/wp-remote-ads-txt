@@ -29,7 +29,7 @@ use Throwable;
 			return;
 		}
 
-		$assets = include RemoteAdsTxt\BASEDIR . '/build/backend.asset.php';
+		$assets = include RemoteAdsTxt\BASEDIR . 'build/backend.asset.php';
 		\wp_register_script(
 			RemoteAdsTxt\PREFIX . '-backend-script',
 			RemoteAdsTxt\BASEURL . '/build/backend.js',

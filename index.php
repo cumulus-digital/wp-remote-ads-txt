@@ -10,7 +10,7 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt;
  * Description: Cache and serve a remote ads.txt
  * Requires at least: 6.0
  * Requires PHP: 7.4
- * Version: 2.0.1
+ * Version: 2.0.2
  * Author: vena
  * License: UNLICENSED
  */
@@ -18,11 +18,11 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt;
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
 \define( 'CUMULUS\Wordpress\RemoteAdsTxt\PLUGIN', __FILE__ );
-\define( 'CUMULUS\Wordpress\RemoteAdsTxt\BASEDIR', \plugin_dir_path( __FILE__ ) );
+\define( 'CUMULUS\Wordpress\RemoteAdsTxt\BASEDIR', \trailingslashit( \plugin_dir_path( __FILE__ ) ) );
 \define( 'CUMULUS\Wordpress\RemoteAdsTxt\BASEURL', \plugin_dir_url( __FILE__ ) );
 \define( 'CUMULUS\Wordpress\RemoteAdsTxt\PREFIX', 'cmls-remote-ads-txt' );
 \define( 'CUMULUS\Wordpress\RemoteAdsTxt\CACHEDIR', \trailingslashit( \realpath( \wp_upload_dir()['basedir'] ) ) . PREFIX );
 
-require_once BASEDIR . '/libs/vendor/autoload.php';
-require_once BASEDIR . '/src/php/helpers.php';
-require_once BASEDIR . '/src/php/index.php';
+require_once BASEDIR . 'libs/vendor/autoload.php';
+require_once BASEDIR . 'src/php/helpers.php';
+require_once BASEDIR . 'src/php/index.php';
