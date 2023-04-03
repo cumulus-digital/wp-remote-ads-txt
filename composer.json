@@ -1,38 +1,63 @@
 {
-    "$schema": "https://getcomposer.org/schema.json",
-    "repositories": [
+    "name": "cumulus-digital/wp-remote-ads-txt",
+    "description": "Cache and serve a remote ads.txt and app-ads.txt in Wordpress",
+    "license": "UNLICENSED",
+    "authors": [
         {
-            "type": "vcs",
-            "url": "https://github.com/vena/wp-settings-builder.git"
+            "name": "Daniel Vena",
+            "email": "daniel.vena@cumulus.com"
         }
     ],
-    "require": {
-        "vena/wp-settings-builder": "dev-main"
+    "autoload": {
+        "psr-4": { "": "src/" }
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "cumulus-digital/wp-php-cs-fixer",
+                "version": "1.0.2",
+                "type": "library",
+                "source": {
+                    "url": "https://github.com/cumulus-digital/wp-php-cs-fixer.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jamesckemp/wordpress-settings-framework",
+                "version": "master",
+                "type": "library",
+                "source": {
+                    "url": "https://github.com/jamesckemp/Wordpress-Settings-Framework.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    ],
     "require-dev": {
-        "vena/php-cs-fixer-wordpress": "^1.0",
-        "bamarni/composer-bin-plugin": "^1.7"
+        "cumulus-digital/wp-php-cs-fixer": "^1",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "sniccowp/php-scoper-wordpress-excludes": "^6.1"
+    },
+    "require": {
+        "jamesckemp/wordpress-settings-framework": "dev-master"
     },
     "scripts": {
-        "bin": "echo 'bin not installed'",
-        "post-install-cmd": ["@composer bin all install --ansi"],
-        "post-update-cmd": ["@composer bin all update --ansi"]
-    },
-    "config": {
-        "preferred-install": "dist",
-        "allow-plugins": {
-            "bamarni/composer-bin-plugin": true
-        }
-    },
-    "extra": {
-        "bamarni-bin": {
-            "bin-links": true,
-            "forward-command": false
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "CUMULUS\\RemoteAdsTxt\\": "../../src"
-        }
+        "post-install-cmd": [
+            "@prefix-dependencies"
+        ],
+        "post-update-cmd": [
+            "@prefix-dependencies"
+        ],
+        "prefix-dependencies": [
+            "php-scoper add-prefix --output-dir=./libs --force --quiet",
+            "echo '{ \"autoload\": { \"classmap\": [\"../libs\", \"../src\"] } }' > ./libs/composer.json",
+            "@composer dump-autoload --working-dir ./libs --no-dev --classmap-authoritative"
+          ]
     }
 }

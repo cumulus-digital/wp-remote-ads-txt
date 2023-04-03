@@ -1,39 +1,20 @@
 {
   "name": "wp-remote-ads-txt",
-  "description": "Cache and serve a remote ads.txt in Wordpress",
+  "version": "2.0.0",
+  "description": "Cache and serve a remote ads.txt and app-ads.txt in Wordpress",
+  "main": "index.js",
   "scripts": {
-    "start": "wp-scripts start --webpack-src-dir=blocks",
-    "build": "wp-scripts build --webpack-src-dir=blocks",
-    "check-engines": "wp-scripts check-engines",
-    "check-licenses": "wp-scripts check-licenses",
-    "format:js": "wp-scripts format --webpack-src-dir=blocks",
-    "lint:css": "wp-scripts lint-style --webpack-src-dir=blocks",
+    "build": "wp-scripts build",
+    "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
-    "lint:md:docs": "wp-scripts lint-md-docs",
-    "lint:md:js": "wp-scripts lint-md-js",
     "lint:pkg-json": "wp-scripts lint-pkg-json",
     "packages-update": "wp-scripts packages-update",
-    "full-upgrade": "npm update; npm run packages-update; npm upgrade; npm run php-scoper",
-    "php-scoper": "phpcs-tokens/refresh.sh; composer update; composer install --no-scripts --no-dev --prefer-dist --optimize-autoloader; ./vendor/bin/php-scoper add-prefix --output-dir build/composer --force; composer dump-autoload --working-dir build/composer --classmap-authoritative; composer install --no-scripts --prefer-dist"
+    "start": "wp-scripts start",
+    "full-upgrade": "npm update && npm run packages-update && npm upgrade && composer update && composer upgrade"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cumulus-digital/wp-remote-ads-txt"
-  },
-  "keywords": [
-    "wordpress",
-    "ads",
-    "ads.txt",
-    "cumulus",
-    "cmls"
-  ],
   "author": "vena",
   "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/cumulus-digital/wp-remote-ads-txt/issues"
-  },
-  "homepage": "https://github.com/cumulus-digital/wp-remote-ads-txt/#readme",
-  "browserslist": [
-    "last 3 versions or > 1%"
-  ]
+  "devDependencies": {
+    "@wordpress/scripts": "^26.1.0"
+  }
 }

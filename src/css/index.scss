@@ -1,0 +1,166 @@
+.shortdesc {
+	max-width: 600px;
+}
+
+.notice.cmls-remote-ads-txt {
+	display: block !important;
+}
+
+.notice-error {
+	color: darkred;
+}
+input.error {
+	outline: 1px solid red;
+}
+input + .error-msg {
+	display: block;
+	color: darkred;
+}
+
+.wpsf-section p {
+	font-size: 15px;
+}
+.wpsf-section .form-table {
+	border-bottom: 1px solid #ccc;
+	max-width: 800px;
+	margin: 0.5em 0;
+	padding: 0.5em 0;
+
+	&:last-child {
+		border-bottom: 0;
+		margin-bottom: 0;
+		padding-bottom: 0;
+
+		th,
+		td {
+			&,
+			&:last-child {
+				padding-bottom: 0;
+			}
+		}
+	}
+}
+.wpsf-section .form-table tr {
+	gap: 0.75em;
+}
+.wpsf-section .form-table th,
+.wpsf-section .form-table td {
+	padding: 0.5em 0.5em 0.5em 0;
+
+	@media (max-width: 782px) {
+		padding: 0.5em 0 0.25em;
+	}
+
+	&:last-child {
+		padding-right: 0;
+	}
+}
+.wpsf-section .wpsf-label {
+	justify-content: start;
+	@media (max-width: 782px) {
+		justify-content: start;
+	}
+}
+.wpsf-section label.switch {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 1em;
+	width: auto;
+	height: auto;
+
+	.slider {
+		display: inline-block;
+		position: relative;
+		width: 4.5em;
+		height: 2.25em;
+		border-radius: 0.4em;
+		background: #bbb;
+
+		&::before {
+			border-radius: 0.25em;
+			width: 45%;
+			height: calc(100% - 8px);
+		}
+	}
+}
+
+#setting-error-settings_updated {
+	position: absolute;
+	box-sizing: border-box;
+	margin: 0;
+	top: 10px;
+	right: 1em;
+	max-width: 600px;
+	display: block !important;
+	z-index: 999;
+
+	@media (max-width: 782px) {
+		top: calc(var(--wp-admin--admin-bar--height) + 5px);
+	}
+
+	&.notice-success {
+		background: #4a4;
+		border: 1px solid #4a4;
+		border-radius: 0.15em;
+		color: #fff;
+
+		.notice-dismiss {
+			&,
+			&::before {
+				color: #fff;
+			}
+		}
+
+		&::after {
+			content: "";
+			height: 3px;
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background: #fffa;
+			animation: success_dismiss 8s linear 1;
+			animation-fill-mode: forwards;
+
+			@keyframes success_dismiss {
+				to {
+					width: 0px;
+				}
+			}
+		}
+	}
+}
+
+.cache-message {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+}
+
+.wp-core-ui .button.button-action {
+	vertical-align: middle;
+}
+
+.loader {
+	box-sizing: border-box;
+	display: none;
+	width: 1em;
+	vertical-align: middle;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: 0.65em solid;
+	line-height: 1;
+	border-color: #88f #0000;
+	animation: s1 1s infinite;
+
+	@keyframes s1 {
+		to {
+			transform: rotate(0.5turn);
+		}
+	}
+}
+.loading .loader {
+	display: inline-block;
+}

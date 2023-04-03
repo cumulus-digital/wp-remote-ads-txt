@@ -2,72 +2,81 @@
 
 declare( strict_types=1 );
 
-$composer = \json_decode( \file_get_contents( 'composer.json' ), true );
+use Isolated\Symfony\Component\Finder\Finder;
 
-$wp_functions = \str_getcsv( \file_get_contents( __DIR__ . '/phpcs-tokens/tokens/wp-functions.csv' ) );
-$wp_classes   = \str_getcsv( \file_get_contents( __DIR__ . '/phpcs-tokens/tokens/wp-classes.csv' ) );
-$wp_consts    = \str_getcsv( \file_get_contents( __DIR__ . '/phpcs-tokens/tokens/wp-consts.csv' ) );
+$wp_classes   = \json_decode( \file_get_contents( 'vendor/sniccowp/php-scoper-wordpress-excludes/generated/exclude-wordpress-classes.json' ), true );
+$wp_functions = \json_decode( \file_get_contents( 'vendor/sniccowp/php-scoper-wordpress-excludes/generated/exclude-wordpress-functions.json' ), true );
+$wp_constants = \json_decode( \file_get_contents( 'vendor/sniccowp/php-scoper-wordpress-excludes/generated/exclude-wordpress-constants.json' ), true );
 
-return array(
-	// The prefix configuration. If a non null value will be used, a random prefix will be generated.
-	'prefix' => 'Vendors',
+return [
+	// The prefix configuration. If a non-null value is used, a random prefix
+	// will be generated instead.
+	//
+	// For more see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#prefix
+	'prefix' => 'CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors',
+
+	// The base output directory for the prefixed files.
+	// This will be overridden by the 'output-dir' command line option if present.
+	'output-dir' => 'libs',
 
 	// By default when running php-scoper add-prefix, it will prefix all relevant code found in the current working
 	// directory. You can however define which files should be scoped by defining a collection of Finders in the
 	// following configuration key.
 	//
-	// For more see: https://github.com/humbug/php-scoper#finders-and-paths
-	'finders' => array(
-		// Finder::create()->files()->in( 'vendor' ),
-		\Isolated\Symfony\Component\Finder\Finder::create()
+	// This configuration entry is completely ignored when using Box.
+	//
+	// For more see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#finders-and-paths
+	'finders' => [
+		Finder::create()
 			->files()
 			->ignoreVCS( true )
-			->notName( '/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.json|composer\\.lock/' )
-			->exclude( array(
+			->exclude( [
 				'doc',
 				'test',
 				'test_old',
 				'tests',
 				'Tests',
 				'vendor-bin',
-				'php-cs-fixer',
-				'friendsofphp',
-			) )
-			->notPath( \array_keys( $composer['require-dev'] ) )
-			->notPath( 'friendsofphp' )
-			->notPath( 'bin' )
-			->in( 'vendor' ),
-		\Isolated\Symfony\Component\Finder\Finder::create()->append( array(
-			'composer.json',
-			'composer.lock',
-		) ),
-	),
+			] )
+			->in( [
+				'vendor/jamesckemp/wordpress-settings-framework',
+			] )
+			->append( ['vendor/autoload.php'] ),
+		Finder::create()
+			->append( [
+				'composer.json',
+			] ),
+	],
 
-	// If `true` then the user defined constants belonging to the global namespace will not be prefixed.
+	// List of excluded files, i.e. files for which the content will be left untouched.
+	// Paths are relative to the configuration file unless if they are already absolute
 	//
-	// For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-	'expose-global-constants' => true,
+	// For more see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#patchers
+	'exclude-files' => [
+		// 'src/an-excluded-file.php',
+	],
 
-	// If `true` then the user defined classes belonging to the global namespace will not be prefixed.
+	// When scoping PHP files, there will be scenarios where some of the code being scoped indirectly references the
+	// original namespace. These will include, for example, strings or string manipulations. PHP-Scoper has limited
+	// support for prefixing such strings. To circumvent that, you can define patchers to manipulate the file to your
+	// heart contents.
 	//
-	// For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-	'expose-global-classes' => true,
+	// For more see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#patchers
+	'patchers' => [
+		static function ( string $filePath, string $prefix, string $contents ): string {
+			// Change the contents here.
 
-	// If `true` then the user defined functions belonging to the global namespace will not be prefixed.
+			return $contents;
+		},
+	],
+
+	// List of symbols to consider internal i.e. to leave untouched.
 	//
-	// For more see https://github.com/humbug/php-scoper#constants--constants--functions-from-the-global-namespace
-	'expose-global-functions' => true,
-
+	// For more information see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#excluded-symbols
+	'exclude-namespaces' => [
+		'~^CUMULUS\\\\Wordpress\\\\RemoteAdsTxt$~',
+	],
 	'exclude-classes'   => $wp_classes,
-	'exclude-functions' => \array_merge(
-		array(
-			'wp_count_terms',
-		),
-		\array_map(
-			'strtolower',
-			$wp_functions
-		)
-	),
-	'exclude-constants'  => $wp_consts,
-	'exclude-namespaces' => array( 'CUMULUS\\RemoteAdsTxt' ),
-);
+	'exclude-functions' => $wp_functions,
+	'exclude-constants' => $wp_constants,
+];
