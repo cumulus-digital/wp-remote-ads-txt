@@ -1,9 +1,9 @@
 # Composer
-vendor/
+/vendor/
 !libs/vendor/
 
 # npm
-node_modules/
+/node_modules/
 
 *.log
 
