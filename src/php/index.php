@@ -6,9 +6,9 @@ use Throwable;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-require_once __DIR__ . '/activation.php';
-require_once __DIR__ . '/deactivation.php';
-require_once __DIR__ . '/settings/index.php';
+require_once BASEDIR . '/src/php/activation.php';
+require_once BASEDIR . '/src/php/deactivation.php';
+require_once BASEDIR . '/src/php/settings/index.php';
 
 try {
 	$general_settings = Settings\Container::getHandler( 'general' );

@@ -10,7 +10,7 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt;
  * Description: Cache and serve a remote ads.txt
  * Requires at least: 6.0
  * Requires PHP: 7.4
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: vena
  * License: UNLICENSED
  */
@@ -23,6 +23,6 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt;
 \define( 'CUMULUS\Wordpress\RemoteAdsTxt\PREFIX', 'cmls-remote-ads-txt' );
 \define( 'CUMULUS\Wordpress\RemoteAdsTxt\CACHEDIR', \trailingslashit( \realpath( \wp_upload_dir()['basedir'] ) ) . PREFIX );
 
-require_once __DIR__ . '/libs/vendor/autoload.php';
-require_once __DIR__ . '/src/php/helpers.php';
-require_once __DIR__ . '/src/php/index.php';
+require_once BASEDIR . '/libs/vendor/autoload.php';
+require_once BASEDIR . '/src/php/helpers.php';
+require_once BASEDIR . '/src/php/index.php';
