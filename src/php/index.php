@@ -8,7 +8,7 @@ use Throwable;
 
 require_once BASEDIR . 'src/php/activation.php';
 require_once BASEDIR . 'src/php/deactivation.php';
-require_once BASEDIR . 'src/php/settings/index.php';
+require_once BASEDIR . 'src/php/Settings/index.php';
 
 try {
 	$general_settings = Settings\Container::getHandler( 'general' );
