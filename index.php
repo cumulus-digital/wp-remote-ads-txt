@@ -10,7 +10,7 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt;
  * Description: Cache and serve a remote ads.txt
  * Requires at least: 6.0
  * Requires PHP: 7.4
- * Version: 2.0.4
+ * Version: 2.0.5
  * Author: vena
  * License: UNLICENSED
  */

@@ -75,5 +75,5 @@ class WPSFTest
 /**
  * WPSFTest Class.
  */
-\class_alias('CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\WPSFTest', 'WPSFTest', \false);
+\class_alias('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WPSFTest', 'WPSFTest', \false);
 $wpsf_test = new WPSFTest();

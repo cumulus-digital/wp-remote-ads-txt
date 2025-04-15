@@ -10,7 +10,7 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt\Vendors;
  *
  * @package wordpress-settings-framework
  */
-if (!\class_exists('CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\WordPressSettingsFramework')) {
+if (!\class_exists('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WordPressSettingsFramework')) {
     /**
      * WordPressSettingsFramework class
      */
@@ -1187,7 +1187,7 @@ if (!\class_exists('CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\WordPressSettings
 			</ul>
 
 			<?php 
-            // Add this here so notices are moved.
+            // Add this here so notices are moved. 
             ?>
 			<div class="wrap wpsf-notices"><h2>&nbsp;</h2></div>
 			<?php 
@@ -1333,8 +1333,12 @@ if (!\class_exists('CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\WordPressSettings
             \wp_send_json_success();
         }
     }
+    /**
+     * WordPressSettingsFramework class
+     */
+    \class_alias('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WordPressSettingsFramework', 'WordPressSettingsFramework', \false);
 }
-if (!\function_exists('CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\wpsf_get_setting')) {
+if (!\function_exists('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_get_setting')) {
     /**
      * Get a setting from an option group
      *
@@ -1353,7 +1357,7 @@ if (!\function_exists('CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\wpsf_get_setti
         return \false;
     }
 }
-if (!\function_exists('CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\wpsf_delete_settings')) {
+if (!\function_exists('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_delete_settings')) {
     /**
      * Delete all the saved settings from a settings file/option group
      *
