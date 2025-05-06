@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CMLS_RemoteAdsTxt_Vendors\\WPSFTest' => $vendorDir . '/jamesckemp/wordpress-settings-framework/wpsf-test.php',
+    'CMLS_RemoteAdsTxt_Vendors\\WordPressSettingsFramework' => $vendorDir . '/jamesckemp/wordpress-settings-framework/wp-settings-framework.php',
     'CUMULUS\\Wordpress\\RemoteAdsTxt\\CacheFile' => $baseDir . '/../src/php/CacheFile.php',
     'CUMULUS\\Wordpress\\RemoteAdsTxt\\Exceptions\\FileLockException' => $baseDir . '/../src/php/Exceptions/FileLockException.php',
     'CUMULUS\\Wordpress\\RemoteAdsTxt\\Exceptions\\MimeTypeException' => $baseDir . '/../src/php/Exceptions/MimeTypeException.php',
@@ -18,7 +20,5 @@ return array(
     'CUMULUS\\Wordpress\\RemoteAdsTxt\\Settings\\Sections\\AppAdsTxt' => $baseDir . '/../src/php/Settings/Sections/AppAdsTxt.php',
     'CUMULUS\\Wordpress\\RemoteAdsTxt\\Settings\\Sections\\Extras' => $baseDir . '/../src/php/Settings/Sections/Extras.php',
     'CUMULUS\\Wordpress\\RemoteAdsTxt\\Settings\\Sections\\General' => $baseDir . '/../src/php/Settings/Sections/General.php',
-    'CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\WPSFTest' => $vendorDir . '/jamesckemp/wordpress-settings-framework/wpsf-test.php',
-    'CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\WordPressSettingsFramework' => $vendorDir . '/jamesckemp/wordpress-settings-framework/wp-settings-framework.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

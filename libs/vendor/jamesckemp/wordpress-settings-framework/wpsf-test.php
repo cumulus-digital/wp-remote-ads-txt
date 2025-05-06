@@ -1,6 +1,6 @@
 <?php
 
-namespace CUMULUS\Wordpress\RemoteAdsTxt\Vendors;
+namespace CMLS_RemoteAdsTxt_Vendors;
 
 /**
  * Plugin Name: WP Settings Framework Example
@@ -75,5 +75,5 @@ class WPSFTest
 /**
  * WPSFTest Class.
  */
-\class_alias('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WPSFTest', 'WPSFTest', \false);
+// class_alias('CMLS_RemoteAdsTxt_Vendors\WPSFTest', 'WPSFTest', \false);
 $wpsf_test = new WPSFTest();

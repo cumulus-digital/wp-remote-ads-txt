@@ -29,14 +29,14 @@ if (!function_exists('humbug_phpscoper_expose_class')) {
         }
     }
 }
-humbug_phpscoper_expose_class('WPSFTest', 'CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WPSFTest');
-humbug_phpscoper_expose_class('WordPressSettingsFramework', 'CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WordPressSettingsFramework');
+humbug_phpscoper_expose_class('WPSFTest', 'CMLS_RemoteAdsTxt_Vendors\WPSFTest');
+humbug_phpscoper_expose_class('WordPressSettingsFramework', 'CMLS_RemoteAdsTxt_Vendors\WordPressSettingsFramework');
 
 // Function aliases. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/docs/further-reading.md#function-aliases
-if (!function_exists('wpsf_delete_settings')) { function wpsf_delete_settings() { return \CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_delete_settings(...func_get_args()); } }
-if (!function_exists('wpsf_get_setting')) { function wpsf_get_setting() { return \CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_get_setting(...func_get_args()); } }
-if (!function_exists('wpsf_tabbed_settings')) { function wpsf_tabbed_settings() { return \CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_tabbed_settings(...func_get_args()); } }
-if (!function_exists('wpsf_tabless_settings')) { function wpsf_tabless_settings() { return \CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_tabless_settings(...func_get_args()); } }
+if (!function_exists('wpsf_delete_settings')) { function wpsf_delete_settings() { return \CMLS_RemoteAdsTxt_Vendors\wpsf_delete_settings(...func_get_args()); } }
+if (!function_exists('wpsf_get_setting')) { function wpsf_get_setting() { return \CMLS_RemoteAdsTxt_Vendors\wpsf_get_setting(...func_get_args()); } }
+if (!function_exists('wpsf_tabbed_settings')) { function wpsf_tabbed_settings() { return \CMLS_RemoteAdsTxt_Vendors\wpsf_tabbed_settings(...func_get_args()); } }
+if (!function_exists('wpsf_tabless_settings')) { function wpsf_tabless_settings() { return \CMLS_RemoteAdsTxt_Vendors\wpsf_tabless_settings(...func_get_args()); } }
 
 return $loader;

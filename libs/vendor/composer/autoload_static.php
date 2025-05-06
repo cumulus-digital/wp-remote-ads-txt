@@ -7,6 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInit58499cfcdacfcca69ccbe557fc01b5d1
 {
     public static $classMap = array (
+        'CMLS_RemoteAdsTxt_Vendors\\WPSFTest' => __DIR__ . '/..' . '/jamesckemp/wordpress-settings-framework/wpsf-test.php',
+        'CMLS_RemoteAdsTxt_Vendors\\WordPressSettingsFramework' => __DIR__ . '/..' . '/jamesckemp/wordpress-settings-framework/wp-settings-framework.php',
         'CUMULUS\\Wordpress\\RemoteAdsTxt\\CacheFile' => __DIR__ . '/../..' . '/../src/php/CacheFile.php',
         'CUMULUS\\Wordpress\\RemoteAdsTxt\\Exceptions\\FileLockException' => __DIR__ . '/../..' . '/../src/php/Exceptions/FileLockException.php',
         'CUMULUS\\Wordpress\\RemoteAdsTxt\\Exceptions\\MimeTypeException' => __DIR__ . '/../..' . '/../src/php/Exceptions/MimeTypeException.php',
@@ -19,8 +21,6 @@ class ComposerStaticInit58499cfcdacfcca69ccbe557fc01b5d1
         'CUMULUS\\Wordpress\\RemoteAdsTxt\\Settings\\Sections\\AppAdsTxt' => __DIR__ . '/../..' . '/../src/php/Settings/Sections/AppAdsTxt.php',
         'CUMULUS\\Wordpress\\RemoteAdsTxt\\Settings\\Sections\\Extras' => __DIR__ . '/../..' . '/../src/php/Settings/Sections/Extras.php',
         'CUMULUS\\Wordpress\\RemoteAdsTxt\\Settings\\Sections\\General' => __DIR__ . '/../..' . '/../src/php/Settings/Sections/General.php',
-        'CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\WPSFTest' => __DIR__ . '/..' . '/jamesckemp/wordpress-settings-framework/wpsf-test.php',
-        'CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors\\WordPressSettingsFramework' => __DIR__ . '/..' . '/jamesckemp/wordpress-settings-framework/wp-settings-framework.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

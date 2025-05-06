@@ -1,6 +1,6 @@
 <?php
 
-namespace CUMULUS\Wordpress\RemoteAdsTxt\Vendors;
+namespace CMLS_RemoteAdsTxt_Vendors;
 
 /**
  * WordPress Settings Framework
@@ -10,7 +10,7 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt\Vendors;
  *
  * @package wordpress-settings-framework
  */
-if (!\class_exists('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WordPressSettingsFramework')) {
+if (!\class_exists('CMLS_RemoteAdsTxt_Vendors\WordPressSettingsFramework')) {
     /**
      * WordPressSettingsFramework class
      */
@@ -1336,9 +1336,9 @@ if (!\class_exists('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WordPressSettingsFram
     /**
      * WordPressSettingsFramework class
      */
-    \class_alias('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\WordPressSettingsFramework', 'WordPressSettingsFramework', \false);
+    // class_alias('CMLS_RemoteAdsTxt_Vendors\WordPressSettingsFramework', 'WordPressSettingsFramework', \false);
 }
-if (!\function_exists('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_get_setting')) {
+if (!\function_exists('CMLS_RemoteAdsTxt_Vendors\wpsf_get_setting')) {
     /**
      * Get a setting from an option group
      *
@@ -1357,7 +1357,7 @@ if (!\function_exists('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_get_setting')
         return \false;
     }
 }
-if (!\function_exists('CUMULUS\Wordpress\RemoteAdsTxt\Vendors\wpsf_delete_settings')) {
+if (!\function_exists('CMLS_RemoteAdsTxt_Vendors\wpsf_delete_settings')) {
     /**
      * Delete all the saved settings from a settings file/option group
      *

@@ -1,6 +1,6 @@
 <?php
 
-namespace CUMULUS\Wordpress\RemoteAdsTxt\Vendors;
+namespace CMLS_RemoteAdsTxt_Vendors;
 
 /**
  * WordPress Settings Framework

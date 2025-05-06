@@ -13,7 +13,7 @@ return [
 	// will be generated instead.
 	//
 	// For more see: https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#prefix
-	'prefix' => 'CUMULUS\\Wordpress\\RemoteAdsTxt\\Vendors',
+	'prefix' => 'CMLS_RemoteAdsTxt_Vendors',
 
 	// The base output directory for the prefixed files.
 	// This will be overridden by the 'output-dir' command line option if present.
@@ -65,6 +65,9 @@ return [
 	'patchers' => [
 		static function ( string $filePath, string $prefix, string $contents ): string {
 			// Change the contents here.
+
+			// remove class aliases
+			$contents = \str_replace( "\class_alias('{$prefix}", "// class_alias('{$prefix}", $contents );
 
 			return $contents;
 		},
