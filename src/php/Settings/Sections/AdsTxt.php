@@ -4,14 +4,16 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt\Settings\Sections;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-use CUMULUS\Wordpress\RemoteAdsTxt\Settings\Handler;
 use CUMULUS\Wordpress\RemoteAdsTxt\Settings\Container;
+use CUMULUS\Wordpress\RemoteAdsTxt\Settings\Handler;
 
-class AdsTxt extends Handler {
+class AdsTxt extends Handler
+{
 
 	protected $section = 'ads-txt';
 
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct();
 
 		$this->setDefault( 'url', '' );
@@ -45,6 +47,16 @@ class AdsTxt extends Handler {
 						'type'   => 'custom',
 						'title'  => '',
 						'output' => [$this, 'outputCacheRefresher'],
+					],
+					[
+						'id'    => 'additions',
+						'type'  => 'textarea',
+						'title' => 'Additional ads.txt entries',
+						'desc'  => '
+							<p class="shortdesc">
+								Additional entries to be appended to the ads.txt file.
+							</p>
+						',
 					],
 				],
 			]

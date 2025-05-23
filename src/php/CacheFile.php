@@ -7,13 +7,14 @@ use SplFileObject;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-class CacheFile {
+class CacheFile
+{
 
 	/**
-	 * Path for cache file.
-	 *
-	 * @var string
-	 */
+		 * Path for cache file.
+		 *
+		 * @var string
+		 */
 	private $path;
 
 	/**
@@ -30,7 +31,8 @@ class CacheFile {
 	 */
 	private $file;
 
-	public function __construct( $filename, $expire = 21600 ) {
+	public function __construct( $filename, $expire = 21600 )
+	{
 		if ( ! \is_dir( CACHEDIR ) ) {
 			if ( ! \wp_mkdir_p( CACHEDIR ) ) {
 				throw new Exception( 'Failed to create cache dir!' );
@@ -41,33 +43,39 @@ class CacheFile {
 		$this->setExpiration( $expire );
 	}
 
-	public function setFilename( $filename ) {
+	public function setFilename( $filename )
+	{
 		if ( ! $filename ) {
 			throw new Exception( 'You must provide a filename for cache files.' );
 		}
 		$this->path = CACHEDIR . '/' . $filename;
 	}
 
-	public function setExpiration( $expire ) {
+	public function setExpiration( $expire )
+	{
 		$this->expire = $expire;
 	}
 
-	public function delete() {
+	public function delete()
+	{
 		if ( $this->exists() ) {
 			$this->close();
 			\unlink( $this->getPath() );
 		}
 	}
 
-	public function exists() {
+	public function exists()
+	{
 		return \file_exists( $this->getPath() );
 	}
 
-	public function getPath() {
+	public function getPath()
+	{
 		return $this->path;
 	}
 
-	public function getModType() {
+	public function getModType()
+	{
 		if ( $this->exists() ) {
 			return \mime_content_type( $this->getPath() );
 		}
@@ -75,7 +83,8 @@ class CacheFile {
 		return null;
 	}
 
-	public function getMTime() {
+	public function getMTime()
+	{
 		if ( $this->exists() ) {
 			return \filemtime( $this->getPath() );
 		}
@@ -83,14 +92,16 @@ class CacheFile {
 		return null;
 	}
 
-	public function touch() {
+	public function touch()
+	{
 		if ( $this->file ) {
 			$this->close();
 		}
 		\touch( $this->getPath() );
 	}
 
-	public function truncate() {
+	public function truncate()
+	{
 		if ( ! $this->exists() ) {
 			return;
 		}
@@ -102,19 +113,21 @@ class CacheFile {
 		$this->close();
 	}
 
-	public function write( $content ) {
+	public function write( $content )
+	{
 		$this->openFileForWriting();
 		$this->file->fwrite( $content );
 		$this->file->fflush();
 		$this->close();
 	}
 
-	public function output() {
+	public function output()
+	{
 		$this->openFileForReading();
 
 		$msg = '# Retrieved from cache / MTime: ' .
 			\wp_date( 'c', $this->file->getMTime() ) .
-			\PHP_EOL;
+			\PHP_EOL . \PHP_EOL;
 
 		$expires = $this->file->getMTime() + $this->expire;
 		$this->outputHeaders( [
@@ -136,7 +149,8 @@ class CacheFile {
 	 * @param array $options['expires']
 	 * @param array $options['last_modified']
 	 */
-	public function outputHeaders( $options ) {
+	public function outputHeaders( $options )
+	{
 		$defaults = [
 			'type' => 'text/plain',
 		];
@@ -145,7 +159,7 @@ class CacheFile {
 		\header( 'Content-Type: ' . $settings['type'] );
 
 		if ( isset( $settings['expires'] ) ) {
-			\header( 'Cache-Control: public, max-age: ' . ( $settings['expires'] - \time() ) . ', no-transform'  );
+			\header( 'Cache-Control: public, max-age: ' . ( $settings['expires'] - \time() ) . ', no-transform' );
 			\header( 'Expires: ' . \gmdate( 'D, d M Y H:i:s T', $settings['expires'] ) );
 		} else {
 			\header( 'Cache-Control: public, no-transform' );
@@ -164,12 +178,14 @@ class CacheFile {
 		}
 	}
 
-	private function close() {
+	private function close()
+	{
 		$this->unlock();
 		$this->file = null;
 	}
 
-	private function lock() {
+	private function lock()
+	{
 		if ( $this->file ) {
 			if ( ! $this->file->flock( \LOCK_EX ) ) {
 				throw new Exceptions\FileLockException( 'Could not obtain lock on cache file.' );
@@ -177,13 +193,15 @@ class CacheFile {
 		}
 	}
 
-	private function unlock() {
+	private function unlock()
+	{
 		if ( $this->file ) {
 			$this->file->flock( \LOCK_UN );
 		}
 	}
 
-	private function openFileForReading() {
+	private function openFileForReading()
+	{
 		if ( ! $this->exists() ) {
 			return false;
 		}
@@ -192,13 +210,15 @@ class CacheFile {
 		$this->file = new SplFileObject( $this->getPath(), 'r' );
 	}
 
-	private function openFileForWriting() {
+	private function openFileForWriting()
+	{
 		$this->close();
 		$this->file = new SplFileObject( $this->getPath(), 'c+' );
 		$this->lock();
 	}
 
-	public function isFresh() {
+	public function isFresh()
+	{
 		if ( \time() - $this->getMTime() < $this->expire ) {
 			return true;
 		}

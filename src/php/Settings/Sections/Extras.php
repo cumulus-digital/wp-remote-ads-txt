@@ -7,11 +7,13 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt\Settings\Sections;
 use CUMULUS\Wordpress\RemoteAdsTxt\Settings\Container;
 use CUMULUS\Wordpress\RemoteAdsTxt\Settings\Handler;
 
-class Extras extends Handler {
+class Extras extends Handler
+{
 
 	protected $section = 'extras';
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->setDefault( 'cleanup', false );
 
 		Container::addSettingsSection(

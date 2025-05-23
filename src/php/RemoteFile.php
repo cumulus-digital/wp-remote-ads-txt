@@ -10,13 +10,14 @@ use Throwable;
 
 require_once BASEDIR . 'src/php/CacheFile.php';
 
-class RemoteFile {
+class RemoteFile
+{
 
 	/**
-	 * Cache file handle
-	 *
-	 * @var string
-	 */
+		 * Cache file handle
+		 *
+		 * @var string
+		 */
 	private $handle;
 
 	/**
@@ -48,13 +49,22 @@ class RemoteFile {
 	private $intercept_path;
 
 	/**
+	 * Appends to cache file
+	 *
+	 * @var string
+	 */
+	private $appends;
+
+	/**
 	 * @param string $handle         Registered name for later retrieval
 	 * @param string $remote_url     URL of the remote file
 	 * @param string $intercept_path Path to intercept on this server to return the remote file contents
 	 * @param int    $cache_timeout  How long to hold onto cache
 	 * @param string $cache_path     Path to cache file for this remote
+	 * @param string $appends        String to append to cache file
 	 */
-	public function __construct( $handle, $remote_url, $intercept_path, $cache_timeout, $cache_path ) {
+	public function __construct( $handle, $remote_url, $intercept_path, $cache_timeout, $cache_path, $appends = '' )
+	{
 		$this->handle = $handle;
 
 		if ( ! $this->isValidRemote( $remote_url ) ) {
@@ -67,6 +77,8 @@ class RemoteFile {
 
 		$this->cache = new CacheFile( $cache_path, $this->cache_timeout );
 
+		$this->appends = $appends;
+
 		// Register AJAX rebuild handler
 		\add_action( 'wp_ajax_' . PREFIX . '-' . $this->handle . '-rebuild_cache', [$this, 'handleAjaxRebuild'] );
 
@@ -74,15 +86,18 @@ class RemoteFile {
 		$this->interceptRequest();
 	}
 
-	public static function isValidRemote( $url ) {
+	public static function isValidRemote( $url )
+	{
 		return $url && \filter_var( $url, \FILTER_VALIDATE_URL ) && \wp_parse_url( $url ) !== false;
 	}
 
-	public function getHandle() {
+	public function getHandle()
+	{
 		return $this->handle;
 	}
 
-	public function handleAjaxRebuild() {
+	public function handleAjaxRebuild()
+	{
 		$nonce = \filter_input( \INPUT_POST, 'nonce' );
 
 		if ( empty( $nonce ) || ! \wp_verify_nonce( $nonce, PREFIX ) ) {
@@ -93,7 +108,8 @@ class RemoteFile {
 		$this->rebuildCache();
 	}
 
-	public function rebuildCache() {
+	public function rebuildCache()
+	{
 		if ( ! $this->cache_timeout ) {
 			return \wp_send_json_error( [
 				'msg'   => 'Cache is bypassed and will not update.',
@@ -126,7 +142,8 @@ class RemoteFile {
 	/**
 	 * Validate a remote by actually attempting to retrieve it.
 	 */
-	public static function validateRemote( $url ) {
+	public static function validateRemote( $url )
+	{
 		if ( ! self::isValidRemote( $url ) ) {
 			throw new Exception( 'URL is invalid.' );
 		}
@@ -134,7 +151,7 @@ class RemoteFile {
 		$response = \wp_remote_get( $url );
 
 		if ( ! $response || \is_wp_error( $response ) ) {
-			throw new Exceptions\RemoteFetchException( $response->get_error_message() );
+			throw new RemoteFetchException( $response->get_error_message() );
 		}
 
 		$content_type = \wp_remote_retrieve_header( $response, 'content-type' );
@@ -146,7 +163,8 @@ class RemoteFile {
 		return $response;
 	}
 
-	public function updateCache() {
+	public function updateCache()
+	{
 		if ( ! $this->cache_timeout ) {
 			return;
 		}
@@ -183,13 +201,15 @@ class RemoteFile {
 
 		if ( $content ) {
 			$this->cache->truncate();
-			$this->cache->write( $content );
+
+			$this->cache->write( \wp_kses( $content, '' ) );
 
 			return 'Cache was updated ' . \wp_date( 'c' );
 		}
 	}
 
-	public function getCacheMTime() {
+	public function getCacheMTime()
+	{
 		if ( $this->cache ) {
 			return $this->cache->getMTime();
 		}
@@ -197,7 +217,8 @@ class RemoteFile {
 		return false;
 	}
 
-	public function getRemote() {
+	public function getRemote()
+	{
 		if ( ! $this->remote_url ) {
 			throw new Exception( 'Attempted to fetch remote without a URL!' );
 		}
@@ -217,7 +238,8 @@ class RemoteFile {
 	 * @param array $options['expires']
 	 * @param array $options['last_modified']
 	 */
-	public function outputHeaders( $options ) {
+	public function outputHeaders( $options )
+	{
 		$defaults = [
 			'type' => 'text/plain',
 		];
@@ -226,7 +248,7 @@ class RemoteFile {
 		\header( 'Content-Type: ' . $settings['type'] );
 
 		if ( isset( $settings['expires'] ) ) {
-			\header( 'Cache-Control: public, max-age: ' . ( $settings['expires'] - \time() ) . ', no-transform'  );
+			\header( 'Cache-Control: public, max-age: ' . ( $settings['expires'] - \time() ) . ', no-transform' );
 			\header( 'Expires: ' . \gmdate( 'D, d M Y H:i:s T', $settings['expires'] ) );
 		} else {
 			\header( 'Cache-Control: public, no-transform' );
@@ -245,7 +267,8 @@ class RemoteFile {
 		}
 	}
 
-	public function interceptRequest() {
+	public function interceptRequest()
+	{
 		try {
 			if ( ! $this->intercept_path ) {
 				return;
@@ -317,6 +340,12 @@ class RemoteFile {
 
 			\http_response_code( 200 );
 			$this->cache->output();
+
+			if ( $this->appends ) {
+				echo \PHP_EOL . \PHP_EOL .
+					'# APPENDS:' . \PHP_EOL .
+					\trim( \wp_kses( $this->appends, '' ) );
+			}
 			exit;
 		} catch ( Throwable $e ) {
 			if ( \is_admin() ) {

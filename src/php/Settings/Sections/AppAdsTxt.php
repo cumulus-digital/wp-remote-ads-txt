@@ -7,11 +7,13 @@ namespace CUMULUS\Wordpress\RemoteAdsTxt\Settings\Sections;
 use CUMULUS\Wordpress\RemoteAdsTxt\Settings\Container;
 use CUMULUS\Wordpress\RemoteAdsTxt\Settings\Handler;
 
-class AppAdsTxt extends Handler {
+class AppAdsTxt extends Handler
+{
 
 	protected $section = 'app-ads-txt';
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->setDefault( 'enabled', false );
 		$this->setDefault( 'url', '' );
 
@@ -45,6 +47,16 @@ class AppAdsTxt extends Handler {
 						'type'   => 'custom',
 						'title'  => '',
 						'output' => [$this, 'outputCacheRefresher'],
+					],
+					[
+						'id'    => 'additions',
+						'type'  => 'textarea',
+						'title' => 'Additional app-ads.txt entries',
+						'desc'  => '
+							<p class="shortdesc">
+								Additional entries to be appended to the app-ads.txt file.
+							</p>
+						',
 					],
 				],
 			]

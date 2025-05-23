@@ -21,7 +21,8 @@ try {
 			$ads_txt_settings->getSetting( 'url' ),
 			'/ads.txt',
 			\intval( $general_settings->getSetting( 'timeout' ) ),
-			'ads.txt'
+			'ads.txt',
+			$ads_txt_settings->getSetting( 'additions' )
 		);
 		REMOTES::setHandler( 'ads-txt', $adsTxtHandler );
 	}
@@ -34,7 +35,8 @@ try {
 			$app_ads_txt_settings->getSetting( 'url' ),
 			'/app-ads.txt',
 			\intval( $general_settings->getSetting( 'timeout' ) ),
-			'app-ads.txt'
+			'app-ads.txt',
+			$app_ads_txt_settings->getSetting( 'additions' )
 		) );
 	}
 } catch ( Throwable $e ) {

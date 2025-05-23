@@ -15,6 +15,6 @@
   "author": "vena",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@wordpress/scripts": "^30.15.0"
+    "@wordpress/scripts": "^30.17.0"
   }
 }
